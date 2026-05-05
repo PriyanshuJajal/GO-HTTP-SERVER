@@ -5,7 +5,7 @@ import (
 	"net"
 )
 
-func Start(port string, numWorkers int) {
+func Start(port string, numWorkers int , router *Router) {
 	// Creating the TCP Listener on the given port
 	listener, err := net.Listen("tcp" , port);
 
@@ -26,7 +26,7 @@ func Start(port string, numWorkers int) {
 
 	// These goroutines will just wait in the background for jobs
 	for i := 1; i <= numWorkers; i++ {
-		go worker(i , jobQueue)
+		go worker(i , jobQueue , router)
 	}
 
 	// The Infinite Accept Loop

@@ -10,16 +10,16 @@ import (
 )
 
 // worker listens to the job queue and processes incoming connections.
-func worker(id int , jobs <- chan net.Conn) {
+func worker(id int , jobs <- chan net.Conn , router *Router) {
 
 	// It blocks until a connection is pushed into the channel
 	for conn := range jobs {
-		handleConnection(id , conn)
+		handleConnection(id , conn , router)
 	}
 }
 
 // handleConnection does the actual HTTP parsing and responding.
-func handleConnection(id int , conn net.Conn) {
+func handleConnection(id int , conn net.Conn , router *Router) {
 	defer conn.Close()
 
 	// Wrap the raw socket in a Buffered Reader
@@ -88,13 +88,32 @@ func handleConnection(id int , conn net.Conn) {
 		}
 	}
 
-	// Build and Send the HTTP Response
-	responseStr := fmt.Sprintf("Hello! You hit the %s endpoint via %s.\n", uri, method)
+	req := HTTPRequest {
+		Method: method,
+		URI: uri,
+		Body: body,
+	}
 
-	// The HTTP spec requires strict \r\n formatting!
-	httpResponse := fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Length: %d\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n%s", len(responseStr), responseStr)
+	res := router.Route(req)
 
-	// Write the bytes back over the network
-	conn.Write([]byte(httpResponse))	
+	// Map status codes to exact HTTP status phrases
+	statusPhrase := "200 OK"
+
+	switch res.StatusCode {
+	case 201:
+		statusPhrase = "201 created"
+	case 404:
+		statusPhrase = "404 Not Found"
+	case 500:
+		statusPhrase = "500 Internal Server Error"
+	}
+
+	httpResponse := fmt.Sprintf(
+		"HTTP/1.1 %s\r\nContent-Length: %d\r\nContent-Type: %s\r\nConnection: close\r\n\r\n%s",
+		statusPhrase, len(res.Body), res.ContentType, res.Body,
+	)
+
+	// Write the bytes back over the network to the client
+	conn.Write([]byte(httpResponse))
 }
 
