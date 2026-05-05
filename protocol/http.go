@@ -69,9 +69,12 @@ func ParseRequest(conn net.Conn) (HTTPRequest, error) {
 		}
 	}
 
+	// Read the POST Body (if it exists)
 	if req.Method == "POST" && contentLength > 0 {
 		bodyBytes := make([]byte, contentLength)
-		_, err := io.ReadFull(reader, bodyBytes)
+
+		_ , err := io.ReadFull(reader, bodyBytes)
+		
 		if err == nil {
 			req.Body = string(bodyBytes)
 		}
