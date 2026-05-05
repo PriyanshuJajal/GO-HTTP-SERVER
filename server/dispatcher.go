@@ -17,11 +17,11 @@ func Start(port string, numWorkers int) {
 	// Ensuring that the socket closes when the server shuts down
 	defer listener.Close()
 
-	fmt.Printf("Server successfully listening on port %s...\n", port)
+	fmt.Printf("Server successfully listening on port: %s...\n", port)
 
 	// Creating the Buffered Channel (The Job Queue)
 	// This holds up to 100 pending connections at a time
-	
+
 	jobQueue := make(chan net.Conn , 100)
 
 	// These goroutines will just wait in the background for jobs
