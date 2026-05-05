@@ -1,0 +1,11 @@
+# Ignore the compiled executable binary
+GO-HTTP-SERVER
+GO-HTTP-SERVER.exe
+*.exe
+
+# Ignore OS specific hidden files
+.DS_Store
+
+# Ignore IDE/Editor folders
+.vscode/
+.idea/
