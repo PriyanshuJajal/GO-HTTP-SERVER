@@ -1,21 +1,12 @@
 package server
 
-import "fmt"
-
-type HTTPRequest struct {
-	Method string
-	URI    string
-	Body   string
-}
-
-type HTTPResponse struct {
-	StatusCode  int
-	ContentType string
-	Body        string
-}
+import (
+	"GO-HTTP-SERVER/protocol"
+	"fmt"
+)
 
 // A custom type for the Handler Functions
-type RouteHandler func(HTTPRequest) HTTPResponse
+type RouteHandler func(protocol.HTTPRequest) protocol.HTTPResponse
 
 // The Router Struct holds a map of routes
 type Router struct {
@@ -39,14 +30,14 @@ func (r *Router) Handle(method, uri string, handler RouteHandler) {
 
 
 // Route matches an incoming request to a registered handler
-func (r *Router) Route(req HTTPRequest) HTTPResponse {
+func (r *Router) Route(req protocol.HTTPRequest) protocol.HTTPResponse {
 	key := fmt.Sprintf("%s %s" , req.Method , req.URI)
 
 	if handler , exists := r.routes[key]; exists {
 		return handler(req)
 	}
 
-	return HTTPResponse{
+	return protocol.HTTPResponse {
 		StatusCode: 404,
 		ContentType: "text/plain",
 		Body: "404 Not Found\n",
