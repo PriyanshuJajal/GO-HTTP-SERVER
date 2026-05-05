@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	port := "8080"
+	port := ":8080"
 	numWorkers := 10 // Spawn 10 concurrent threads (goroutines)
 
 	fmt.Println("=====================================")

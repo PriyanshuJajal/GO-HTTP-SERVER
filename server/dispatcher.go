@@ -17,7 +17,7 @@ func Start(port string, numWorkers int) {
 	// Ensuring that the socket closes when the server shuts down
 	defer listener.Close()
 
-	fmt.Printf("Server successfully listening on port: %s...\n", port)
+	fmt.Printf("Server successfully listening on port %s...\n", port)
 
 	// Creating the Buffered Channel (The Job Queue)
 	// This holds up to 100 pending connections at a time
@@ -41,15 +41,6 @@ func Start(port string, numWorkers int) {
 
 		// Pushing the new connection into the channel queue
 		jobQueue <- conn
-	}
-}
-
-// Dummy worker function for now
-func worker(id int , jobs <- chan net.Conn) {
-	for conn := range jobs {
-		fmt.Printf("Worker %d received a connection!\n" , id)
-		
-		conn.Close()
 	}
 }
 
