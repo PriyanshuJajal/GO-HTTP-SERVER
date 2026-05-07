@@ -38,7 +38,7 @@ micro-http-server/
 ### Running the Server
 Clone the repository and run the entry point. The server will initialize the worker pool and listen on port `8080`.
 ```bash
-git clone [https://github.com/yourusername/micro-http-server.git](https://github.com/yourusername/micro-http-server.git)
+git clone [https://github.com/PriyanshuJajal/GO-HTTP-SERVER](https://github.com/PriyanshuJajal/GO-HTTP-SERVER)
 cd micro-http-server
 go run main.go
 ```
