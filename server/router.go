@@ -2,7 +2,6 @@ package server
 
 import (
 	"GO-HTTP-SERVER/protocol"
-	"fmt"
 )
 
 // A custom type for the Handler Functions
@@ -24,14 +23,14 @@ func NewRouter() *Router {
 
 // Handle registers a new route in the map
 func (r *Router) Handle(method, uri string, handler RouteHandler) {
-	key := fmt.Sprintf("%s %s" , method , uri)
+	key := method + " " + uri
 	r.routes[key] = handler
 }
 
 
 // Route matches an incoming request to a registered handler
 func (r *Router) Route(req protocol.HTTPRequest) protocol.HTTPResponse {
-	key := fmt.Sprintf("%s %s" , req.Method , req.URI)
+	key := req.Method + " " + req.URI
 
 	if handler , exists := r.routes[key]; exists {
 		return handler(req)
