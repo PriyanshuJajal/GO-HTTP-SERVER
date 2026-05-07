@@ -88,7 +88,7 @@ The test simulated **100 concurrent clients** sending a total of **10,000 reques
 hey -n 10000 -c 100 http://localhost:8080/api/status
 ```
 
-### Benchmark Results
+### Sample Benchmark Results
 
 | Metric | Result | Notes |
 | :--- | :--- | :--- |
