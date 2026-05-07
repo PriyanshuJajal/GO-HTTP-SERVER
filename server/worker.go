@@ -6,7 +6,9 @@ import (
 	"GO-HTTP-SERVER/protocol"
 )
 
+// worker listens to the job queue & processes incoming requests
 func worker(id int, jobs <-chan net.Conn, router *Router) {
+	// This loop blocks until a connection is pushed into the channel
 	for conn := range jobs {
 		handleConnection(id, conn, router)
 	}
