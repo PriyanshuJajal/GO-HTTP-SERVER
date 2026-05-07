@@ -23,3 +23,18 @@ func PostData(req protocol.HTTPRequest) protocol.HTTPResponse {
 		Body: responseBody,
 	}
 }
+
+func GetHome(req protocol.HTTPRequest) protocol.HTTPResponse {
+	return  protocol.HTTPResponse{
+		StatusCode: 200,
+		ContentType: "text/html", 
+		Body: `
+			<html>
+				<body style="font-family: Arial; text-align: center; margin-top: 50px;">
+					<h1>Go Micro Server is Live!</h1>
+					<p>Successfully rendering HTML from a custom TCP socket.</p>
+				</body>
+			</html>
+		`,
+	}
+}

@@ -13,6 +13,7 @@ func main() {
 	router := server.NewRouter()
 
 	// Routes for GET & POST request
+	router.Handle("GET" , "/" , handlers.GetHome)
 	router.Handle("GET", "/api/status", handlers.GetStatus)
 	router.Handle("POST", "/api/data", handlers.PostData)
 
