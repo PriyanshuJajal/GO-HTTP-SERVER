@@ -18,6 +18,9 @@ This server demonstrates a deep understanding of system design, concurrency, and
 ## 📁 Project Structure
 ```text
 micro-http-server/
+├── assets/                 
+│   └── Latency_StatusCode_Distribution.png  
+    └── Summary_Histogram.png     
 ├── go.mod                  # Go module definition
 ├── main.go                 # Entry point, initializes router and worker pool
 ├── server/
@@ -41,7 +44,7 @@ Clone the repository and run the entry point. The server will initialize the wor
 git clone [https://github.com/PriyanshuJajal/GO-HTTP-SERVER](https://github.com/PriyanshuJajal/GO-HTTP-SERVER)
 cd micro-http-server
 go run main.go
-```
+``` 
 
 ---
 
@@ -92,6 +95,13 @@ The server was load-tested using [`hey`](https://github.com/rakyll/hey) with **1
 | **Throughput (RPS)** | `~5923 req/sec` | Sustained throughput with zero GC pressure |
 | **Error Rate** | `0.00%` | Zero dropped TCP connections |
 
+--- 
+
+**Terminal Output:**
+<p>
+  <img src="./assets/Summary_Histogram.png" width="500">
+</p>
+
 ### Latency Distribution
 Thanks to the zero-allocation routing optimization, the server demonstrates highly consistent, flat tail-latencies under heavy load.
 
@@ -99,6 +109,13 @@ Thanks to the zero-allocation routing optimization, the server demonstrates high
 *   **p50 (Median):** `15.1 ms`
 *   **p90:** `21.3 ms`
 *   **p99:** `49.3 ms`
+
+---
+
+**Terminal Output:**
+<p>
+  <img src="./assets/Latency_StatusCode_Distribution.png" width="500">
+</p>
 
 ---
 
