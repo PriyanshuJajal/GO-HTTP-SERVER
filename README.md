@@ -23,9 +23,10 @@ micro-http-server/
 ├── server/
 │   ├── dispatcher.go       # TCP Listener and Goroutine pool management
 │   └── router.go           # O(1) Route matching engine
+|   └── worker.go           # Consumes and processes connections from the job queue
 ├── protocol/
 │   └── http.go             # Raw byte parsing and HTTP response formatting
-└── handlers/
+└── handler/
     └── api.go              # Business logic for specific endpoints
 ```
 
